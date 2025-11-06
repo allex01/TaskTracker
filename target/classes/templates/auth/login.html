@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Вход</title>
+    <style>
+        body { font-family: sans-serif; max-width: 640px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        input[type=text], input[type=password] { padding: 8px; width: 100%; }
+        button { padding: 8px 12px; }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+<h2>Вход</h2>
+
+<div th:if="${param.error}" style="color:#b00020; margin: 8px 0;">
+    Неверный логин или пароль
+  </div>
+<div th:if="${param.locked}" style="color:#b00020; margin: 8px 0;">
+    Учетная запись заблокирована
+  </div>
+<div th:if="${param.logout}" style="color:#006400; margin: 8px 0;">
+    Вы успешно вышли из системы
+  </div>
+
+<form action="/login" method="post">
+    <div class="row">
+        <label for="username" style="align-content: center;">Логин</label>
+        <input id="username" name="username" type="text" placeholder="Логин" style="margin-left: 10px;"/>
+    </div>
+    <div class="row">
+        <label for="password" style="align-content: center;">Пароль</label>
+        <input id="password" name="password" type="password" placeholder="Пароль" style="margin-left: 10px;"/>
+    </div>
+    <div class="row">
+        <button type="submit" class="button">Войти</button>
+        <a class="button button-outline" href="/auth/register" style="margin-left: 10px;">Регистрация</a>
+    </div>
+</form>
+
+</body>
+</html>
+
+

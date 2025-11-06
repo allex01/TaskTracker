@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Регистрация</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 640px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        .muted { color: #666; }
+        .error { color: #b00020; }
+        .ok { color: #006400; }
+        input[type=text], input[type=password] { padding: 8px; width: 100%; }
+        button { padding: 8px 12px; }
+        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+</head>
+<body>
+<h2>Регистрация</h2>
+
+<div class="row">
+    <label for="username" style="align-content: center;">Логин</label>
+    <input id="username" name="username" type="text" placeholder="Введите логин" style="margin-left: 10px;"/>
+</div>
+
+<div class="row">
+    <button
+        hx-post="/api/auth/password/preview"
+        hx-include="#username"
+        hx-target="#preview"
+        hx-swap="innerHTML"
+    >Сгенерировать пароль</button>
+</div>
+
+<div id="preview" class="row muted">
+    Введите логин и нажмите «Сгенерировать пароль»
+    <div th:replace="~{auth/fragments :: preview}"></div>
+    <!-- Фрагмент будет подставлен сюда HTMX'ом -->
+</div>
+
+<div class="row">
+    <a href="/auth/login">Уже есть аккаунт? Войти</a>
+</div>
+
+</body>
+</html>
+
+

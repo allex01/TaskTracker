@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Добро пожаловать</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 720px; margin: 48px auto; text-align: center; }
+        .links { margin-top: 24px; }
+        .links a { margin: 0 8px; }
+    </style>
+  </head>
+  <body>
+    <h1>Добро пожаловать!</h1>
+    <p>Это простая стартовая страница после входа.</p>
+    <div class="links">
+        <div th:if="${isAdmin}">
+            <a class="button" href="/security/settings">Системные настройки</a>
+            <a class="button button-outline" href="/audit">Журнал аудита</a>
+        </div>
+        <div th:if="${!isAdmin}">
+            <a class="button button-outline" href="/audit">Журнал аудита</a>
+        </div>
+        <div style="margin-top:16px;">
+            <a class="button" href="/logout">Выйти</a>
+        </div>
+    </div>
+  </body>
+</html>
+
+

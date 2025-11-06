@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="preview">
+    <div th:if="${username}">
+        <div th:if="${available}" class="ok">Логин доступен</div>
+        <div th:if="${!available}" class="error">Логин занят</div>
+        <div class="row">
+            <div><strong>Логин:</strong> <span class="mono" th:text="${username}"></span></div>
+            <div style="margin-left: 10px;"><strong>Пароль:</strong> <span class="mono" th:text="${generatedPassword}"></span></div>
+        </div>
+        <div class="row" th:if="${available}">
+            <form hx-post="/api/auth/register" hx-target="#preview" hx-swap="innerHTML">
+                <input type="hidden" name="username" th:value="${username}"/>
+                <input type="hidden" name="password" th:value="${generatedPassword}"/>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

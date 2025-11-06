@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Настройки безопасности</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 720px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        input[type=number] { width: 120px; }
+    </style>
+</head>
+<body>
+<h3>Настройки безопасности</h3>
+
+<form method="post" action="/security/settings">
+    <div class="row">
+        <label>Макс. неудачных попыток</label>
+        <input type="number" name="maxFailedAttempts" min="1" th:max="${s.maxFailedAttemptsCap}" th:value="${s.maxFailedAttempts}"/>
+        <span th:text="'из '+${s.maxFailedAttemptsCap}"></span>
+    </div>
+    <div class="row">
+        <label>Время блокировки (мин)</label>
+        <input type="number" name="lockMinutes" min="1" th:value="${s.lockMinutes}"/>
+    </div>
+    <div class="row">
+        <label>Idle timeout (мин)</label>
+        <input type="number" name="sessionIdleMinutes" min="1" th:value="${s.sessionIdleMinutes}"/>
+    </div>
+    <div class="row">
+        <button type="submit">Сохранить</button>
+        <a class="button button-outline" href="/welcome">Назад</a>
+    </div>
+</form>
+
+</body>
+</html>
+
+

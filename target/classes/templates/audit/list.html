@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Журнал аудита</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 1100px; margin: 24px auto; }
+        table { width: 100%; }
+        th, td { white-space: nowrap; }
+        td.details { white-space: normal; max-width: 520px; }
+        .filters { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
+        .filters .field { display: flex; flex-direction: column; }
+    </style>
+</head>
+<body>
+<h3>Журнал аудита</h3>
+
+<form class="filters" method="get" action="/audit">
+    <div class="field">
+        <label>Тип события</label>
+        <input name="type" th:value="${type}" placeholder="например LOGIN_SUCCESS"/>
+    </div>
+    <div class="field">
+        <label>Пользователь</label>
+        <input name="user" th:value="${user}" placeholder="username"/>
+    </div>
+    <div class="field">
+        <label>С даты-времени (ISO)</label>
+        <input name="from" th:value="${from}" placeholder="2025-11-06T10:00:00Z"/>
+    </div>
+    <div class="field">
+        <label>По дату-время (ISO)</label>
+        <input name="to" th:value="${to}" placeholder="2025-11-06T12:00:00Z"/>
+    </div>
+    <div class="field">
+        <button type="submit">Фильтровать</button>
+        <a class="button button-outline" href="/audit">Сброс</a>
+    </div>
+    <div class="field">
+        <a class="button" href="/welcome">На главную</a>
+    </div>
+  </form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Время</th>
+        <th>Тип</th>
+        <th>Пользователь</th>
+        <th>OS User</th>
+        <th>Workstation</th>
+        <th>Детали</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="e : ${events}">
+        <td th:text="${e.occurredAt}"></td>
+        <td th:text="${e.eventType}"></td>
+        <td th:text="${e.appUser}"></td>
+        <td th:text="${e.osUser}"></td>
+        <td th:text="${e.workstation}"></td>
+        <td class="details" th:text="${e.details}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
+
+
