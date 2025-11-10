@@ -20,7 +20,6 @@ public class AuditService {
         e.setAppUser(appUser);
         if (request != null) {
             e.setWorkstation(request.getRemoteAddr());
-            e.setOsUser(request.getRemoteUser());
         } else {
             e.setOsUser(System.getProperty("user.name"));
         }

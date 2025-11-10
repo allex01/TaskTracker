@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Редактировать задачу</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 640px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        input[type=text], textarea, select { padding: 8px; width: 100%; }
+        textarea { min-height: 100px; }
+    </style>
+</head>
+<body>
+<h2>Редактировать задачу</h2>
+
+<form method="post" th:action="@{/tasks/{id}/update(id=${task.id})}">
+    <div class="row">
+        <label for="title">Название задачи *</label>
+        <input id="title" name="title" type="text" th:value="${task.title}" required maxlength="200"/>
+    </div>
+    <div class="row">
+        <label for="description">Описание</label>
+        <textarea id="description" name="description" th:text="${task.description}"></textarea>
+    </div>
+    <div class="row">
+        <label for="priority">Приоритет</label>
+        <select id="priority" name="priority">
+            <option th:each="p : ${priorities}" th:value="${p}" th:selected="${p == task.priority}" th:text="${p}"></option>
+        </select>
+    </div>
+    <div class="row">
+        <label for="status">Статус</label>
+        <select id="status" name="status">
+            <option th:each="s : ${statuses}" th:value="${s}" th:selected="${s == task.status}" th:text="${s}"></option>
+        </select>
+    </div>
+    <div class="row">
+        <label for="assigneeIdStr">Исполнитель</label>
+        <select id="assigneeIdStr" name="assigneeIdStr">
+            <option value="">Не назначен</option>
+            <option th:each="user : ${groupUsers}" 
+                    th:value="${user.id}" 
+                    th:selected="${task.assignee != null && task.assignee.id == user.id}" 
+                    th:text="${user.username}"></option>
+        </select>
+    </div>
+    <div class="row">
+        <button type="submit" class="button">Сохранить</button>
+        <a class="button button-outline" th:href="@{/tasks/{id}(id=${task.id})}">Отмена</a>
+    </div>
+</form>
+
+</body>
+</html>
+

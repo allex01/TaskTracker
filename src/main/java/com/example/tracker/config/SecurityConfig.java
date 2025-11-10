@@ -42,7 +42,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // временно без шифрования, для совместимости с текущими паролями
         return NoOpPasswordEncoder.getInstance();
     }
 }

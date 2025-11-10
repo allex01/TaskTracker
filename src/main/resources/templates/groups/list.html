@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Мои группы</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 900px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        table { width: 100%; }
+        th, td { padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+<h2>Мои группы</h2>
+
+<div class="row">
+    <a class="button" href="/groups/create">Создать группу</a>
+    <a class="button button-outline" href="/welcome" style="margin-left: 10px;">На главную</a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Владелец</th>
+        <th>Дата создания</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="group : ${groups}">
+        <td th:text="${group.name}"></td>
+        <td th:text="${group.owner.username}"></td>
+        <td th:text="${#temporals.format(group.createdAt, 'dd.MM.yyyy HH:mm')}"></td>
+        <td>
+            <a th:href="@{/groups/{id}(id=${group.id})}">Открыть</a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(groups)}">
+        <td colspan="4" style="text-align: center; color: #666;">
+            У вас пока нет групп. <a href="/groups/create">Создайте первую группу</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+

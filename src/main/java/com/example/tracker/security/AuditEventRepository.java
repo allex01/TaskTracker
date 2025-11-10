@@ -20,8 +20,6 @@ public interface AuditEventRepository extends JpaRepository<AuditEvent, UUID> {
             @Param("fromTs") OffsetDateTime fromTs,
             @Param("toTs") OffsetDateTime toTs
     );
-
-    List<AuditEvent> findByOccurredAtBefore(OffsetDateTime before);
 }
 
 

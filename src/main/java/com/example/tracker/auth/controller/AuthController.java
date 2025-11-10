@@ -28,7 +28,6 @@ public class AuthController {
         return "auth/login";
     }
 
-    // HTMX: превью пароля — вы реализуете алгоритм позже. Сейчас — заглушка
     @PostMapping(value = "/api/auth/password/preview")
     public String passwordPreview(@RequestParam String username, Model model) {
         boolean available = StringUtils.hasText(username) && !userRepository.existsByUsername(username);
@@ -51,7 +50,7 @@ public class AuthController {
 
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password); // без шифрования по запросу пользователя
+        user.setPassword(password);
         userRepository.save(user);
         return Map.of("ok", true, "message", "Пользователь зарегистрирован");
     }

@@ -7,7 +7,8 @@
     <style>
         body { font-family: sans-serif; max-width: 720px; margin: 24px auto; }
         .row { margin: 12px 0; }
-        input[type=number] { width: 120px; }
+        input[type=number] { margin-left: 10px; width: 120px; margin-bottom: 0; }
+        label { align-content: center;}
     </style>
 </head>
 <body>
@@ -17,7 +18,7 @@
     <div class="row">
         <label>Макс. неудачных попыток</label>
         <input type="number" name="maxFailedAttempts" min="1" th:max="${s.maxFailedAttemptsCap}" th:value="${s.maxFailedAttempts}"/>
-        <span th:text="'из '+${s.maxFailedAttemptsCap}"></span>
+        <span th:text="'из '+${s.maxFailedAttemptsCap}" style="margin-left: 10px;"></span>
     </div>
     <div class="row">
         <label>Время блокировки (мин)</label>
@@ -29,7 +30,7 @@
     </div>
     <div class="row">
         <button type="submit">Сохранить</button>
-        <a class="button button-outline" href="/welcome">Назад</a>
+        <a class="button button-outline" href="/welcome" style="margin-left: 10px;">Назад</a>
     </div>
 </form>
 

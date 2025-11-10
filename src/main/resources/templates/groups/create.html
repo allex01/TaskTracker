@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Создать группу</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 640px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        input[type=text] { padding: 8px; width: 100%; }
+    </style>
+</head>
+<body>
+<h2>Создать группу</h2>
+
+<form method="post" action="/groups/create">
+    <div class="row">
+        <label for="name">Название группы</label>
+        <input id="name" name="name" type="text" placeholder="Введите название группы" required maxlength="120"/>
+    </div>
+    <div class="row">
+        <button type="submit" class="button">Создать</button>
+        <a class="button button-outline" href="/groups">Отмена</a>
+    </div>
+</form>
+
+</body>
+</html>
+

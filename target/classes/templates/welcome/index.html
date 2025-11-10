@@ -12,14 +12,13 @@
   </head>
   <body>
     <h1>Добро пожаловать!</h1>
-    <p>Это простая стартовая страница после входа.</p>
     <div class="links">
-        <div th:if="${isAdmin}">
-            <a class="button" href="/security/settings">Системные настройки</a>
+        <div>
+            <a class="button" href="/groups">Мои группы</a>
             <a class="button button-outline" href="/audit">Журнал аудита</a>
         </div>
-        <div th:if="${!isAdmin}">
-            <a class="button button-outline" href="/audit">Журнал аудита</a>
+        <div th:if="${isAdmin}" style="margin-top:16px;">
+            <a class="button" href="/security/settings">Системные настройки</a>
         </div>
         <div style="margin-top:16px;">
             <a class="button" href="/logout">Выйти</a>

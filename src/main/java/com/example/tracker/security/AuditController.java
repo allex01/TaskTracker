@@ -25,7 +25,7 @@ public class AuditController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime to,
             Model model
     ) {
-        // Нормализуем даты, чтобы не передавать null (PostgreSQL не любит необъявленный тип NULL)
+        // Нормализуем даты, чтобы не передавать null
         OffsetDateTime fromEff = from != null ? from : OffsetDateTime.parse("0001-01-01T00:00:00Z");
         OffsetDateTime toEff = to != null ? to : OffsetDateTime.parse("9999-12-31T23:59:59Z");
         String typeEff = type != null ? type : "";

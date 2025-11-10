@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Создать задачу</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 640px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        input[type=text], textarea, select { padding: 8px; width: 100%; }
+        textarea { min-height: 100px; }
+    </style>
+</head>
+<body>
+<h2>Создать задачу</h2>
+<p><strong>Группа:</strong> <span th:text="${group.name}"></span></p>
+
+<form method="post" th:action="@{/groups/{groupId}/tasks/create(groupId=${group.id})}">
+    <div class="row">
+        <label for="title">Название задачи *</label>
+        <input id="title" name="title" type="text" placeholder="Введите название задачи" required maxlength="200"/>
+    </div>
+    <div class="row">
+        <label for="description">Описание</label>
+        <textarea id="description" name="description" placeholder="Введите описание задачи"></textarea>
+    </div>
+    <div class="row">
+        <label for="priority">Приоритет</label>
+        <select id="priority" name="priority">
+            <option value="LOW">Низкий</option>
+            <option value="MEDIUM" selected>Средний</option>
+            <option value="HIGH">Высокий</option>
+            <option value="CRITICAL">Критический</option>
+        </select>
+    </div>
+    <div class="row">
+        <label for="assigneeId">Исполнитель</label>
+        <select id="assigneeId" name="assigneeId">
+            <option value="">Не назначен</option>
+            <option th:each="user : ${groupUsers}" th:value="${user.id}" th:text="${user.username}"></option>
+        </select>
+    </div>
+    <div class="row">
+        <button type="submit" class="button">Создать</button>
+        <a class="button button-outline" th:href="@{/groups/{id}(id=${group.id})}">Отмена</a>
+    </div>
+</form>
+
+</body>
+</html>
+

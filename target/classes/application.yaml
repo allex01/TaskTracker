@@ -39,10 +39,3 @@ server:
   servlet:
     session:
       timeout: 15m
-
-audit:
-  archive:
-    dir: ./audit-archive
-    older-than-days: 7
-    schedule-cron: "0 0 * * * *" # каждый час
-

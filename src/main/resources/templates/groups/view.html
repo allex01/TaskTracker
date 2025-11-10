@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${group.name}">Группа</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 900px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        table { width: 100%; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        .priority-low { color: #006400; }
+        .priority-medium { color: #FFA500; }
+        .priority-high { color: #FF4500; }
+        .priority-critical { color: #8B0000; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h2 th:text="${group.name}">Группа</h2>
+
+<div class="row">
+    <p><strong>Владелец:</strong> <span th:text="${group.owner.username}"></span></p>
+    <p style="margin-left: 10px;"><strong>Дата создания:</strong> <span th:text="${#temporals.format(group.createdAt, 'dd.MM.yyyy HH:mm')}"></span></p>
+</div>
+
+<div class="row">
+    <a class="button" th:href="@{/groups/{id}/tasks/create(id=${group.id})}">Создать задачу</a>
+    <a class="button button-outline" href="/groups" style="margin-left: 10px;">Назад к списку групп</a>
+</div>
+
+<h3>Задачи</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Приоритет</th>
+        <th>Статус</th>
+        <th>Исполнитель</th>
+        <th>Создатель</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.title}"></td>
+        <td>
+            <span th:classappend="'priority-' + ${task.priority.name().toLowerCase()}" th:text="${task.priority}"></span>
+        </td>
+        <td th:text="${task.status}"></td>
+        <td th:text="${task.assignee?.username ?: 'Не назначен'}"></td>
+        <td th:text="${task.createdBy?.username}"></td>
+        <td>
+            <a th:href="@{/tasks/{id}(id=${task.id})}">Открыть</a>
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(tasks)}">
+        <td colspan="6" style="text-align: center; color: #666;">
+            Задач пока нет. <a th:href="@{/groups/{id}/tasks/create(id=${group.id})}">Создайте первую задачу</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+

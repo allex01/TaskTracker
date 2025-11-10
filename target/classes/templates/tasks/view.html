@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${task.title}">Задача</title>
+    <link rel="stylesheet" href="https://unpkg.com/milligram/dist/milligram.min.css">
+    <style>
+        body { font-family: sans-serif; max-width: 900px; margin: 24px auto; }
+        .row { margin: 12px 0; }
+        .info-box { background: #f5f5f5; padding: 16px; border-radius: 4px; }
+        .priority-low { color: #006400; }
+        .priority-medium { color: #FFA500; }
+        .priority-high { color: #FF4500; }
+        .priority-critical { color: #8B0000; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h2 th:text="${task.title}">Задача</h2>
+
+<div class="info-box">
+    <p><strong>Группа:</strong> <a th:href="@{/groups/{id}(id=${task.group.id})}" th:text="${task.group.name}"></a></p>
+    <p><strong>Описание:</strong> <span th:text="${task.description ?: 'Нет описания'}"></span></p>
+    <p><strong>Приоритет:</strong> 
+        <span th:classappend="'priority-' + ${task.priority.name().toLowerCase()}" th:text="${task.priority}"></span>
+    </p>
+    <p><strong>Статус:</strong> <span th:text="${task.status}"></span></p>
+    <p><strong>Исполнитель:</strong> <span th:text="${task.assignee?.username ?: 'Не назначен'}"></span></p>
+    <p><strong>Создатель:</strong> <span th:text="${task.createdBy?.username}"></span></p>
+    <p><strong>Дата создания:</strong> <span th:text="${#temporals.format(task.createdAt, 'dd.MM.yyyy HH:mm')}"></span></p>
+    <p><strong>Дата обновления:</strong> <span th:text="${#temporals.format(task.updatedAt, 'dd.MM.yyyy HH:mm')}"></span></p>
+</div>
+
+<div class="row">
+    <a class="button" th:href="@{/tasks/{id}/edit(id=${task.id})}">Редактировать</a>
+    <a class="button button-outline" th:href="@{/groups/{id}(id=${task.group.id})}">Назад к группе</a>
+</div>
+
+</body>
+</html>
+
